@@ -1,12 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { RouterOutlet } from '@angular/router';
+import { BoddyComponent } from './components/boddy/boddy.component';
+import { GlobalInfooService } from './services/globalInfoo.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, BoddyComponent, MatProgressSpinnerModule],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
+  standalone: true,
 })
 export class App {
   protected title = 'f1fan';
+  private globalInfooService = inject(GlobalInfooService);
+
+  loading = this.globalInfooService.loadingSignal;
+  error = this.globalInfooService.errorSignal;
+
+
 }

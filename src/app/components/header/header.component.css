@@ -1,0 +1,298 @@
+@import '../../../styles.css';
+
+header{
+  background-color: var(--primary-color);
+  height: var(--header-height);
+  position: relative;
+  z-index: 100;
+  nav {
+    height: 100%;
+    padding: 0 10px;
+    ul {
+     margin: 0;
+     padding: 0;
+     height: 100%;
+     gap: 20px;
+      li{
+       position: relative;
+       font-size: var(--font-size-small);
+       margin: 0;
+       padding: 0;
+       transition: all 0.3s ease;
+       &:hover{
+        transition: all 0.3s ease;
+        border-bottom: 2px solid var(--color-claro);
+      }
+     }
+    }
+  }
+}
+
+/* Menú desplegable */
+.dropdown-menu {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  width: 100vw;
+  background-color: var(--color-claro);
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-content {
+  padding: 20px;
+  color: var(--primary-color);
+}
+
+.menu-content h3 {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Grids para diferentes tipos de contenido */
+.pilots-grid, .teams-grid, .circuits-grid, .tires-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+/* Estilos para pilotos */
+.pilot-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: rgba(21, 21, 30, 0.05);
+  transition: all 0.2s ease;
+}
+
+.pilot-card:hover {
+  background-color: rgba(21, 21, 30, 0.1);
+  transform: translateY(-2px);
+}
+
+.pilot-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.pilot-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.pilot-name {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.pilot-team {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+/* Estilos para equipos */
+.team-card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 25px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: rgba(21, 21, 30, 0.05);
+  transition: all 0.2s ease;
+}
+
+.team-card:hover {
+  background-color: rgba(21, 21, 30, 0.1);
+  transform: translateY(-2px);
+}
+.team-logo-c {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+}
+.team-logo-c-item {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+      background: #005081;
+    border-radius: 50%;
+}
+
+.team-logo {
+  display: flex;
+  height: 24px;
+  width: 24px;
+  object-fit: contain;
+  width: 100%;
+  background-color: transparent;
+
+}
+.team-car {
+  width: 100%;
+  display: flex;
+  height: 52px;
+  width: 229px;
+  object-fit: contain;
+}
+.team-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.team-name {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.team-nationality {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+/* Estilos para circuitos */
+.circuit-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: rgba(21, 21, 30, 0.05);
+  transition: all 0.2s ease;
+}
+
+.circuit-card:hover {
+  background-color: rgba(21, 21, 30, 0.1);
+  transform: translateY(-2px);
+}
+
+.circuit-image {
+  width: 60px;
+  height: 40px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.circuit-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.circuit-name {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.circuit-country {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+/* Estilos para neumáticos */
+.tire-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: rgba(21, 21, 30, 0.05);
+  transition: all 0.2s ease;
+}
+
+.tire-card:hover {
+  background-color: rgba(21, 21, 30, 0.1);
+  transform: translateY(-2px);
+}
+
+.tire-color {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid rgba(21, 21, 30, 0.2);
+}
+
+.tire-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.tire-name {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.tire-compound {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+/* Estilos para estados de carga */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: 200px;
+}
+
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(21, 21, 30, 0.1);
+  border-top: 2px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 12px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-container p {
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin: 0;
+}
+
+/* Estilos para estados vacíos */
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: 200px;
+  text-align: center;
+}
+
+.empty-state p {
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  opacity: 0.6;
+  margin: 0;
+}
+

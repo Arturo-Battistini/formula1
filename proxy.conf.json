@@ -1,0 +1,10 @@
+{
+  "/api/f1": {
+    "target": "https://ergast.com",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api/f1": "/api/f1"
+    }
+  }
+}
