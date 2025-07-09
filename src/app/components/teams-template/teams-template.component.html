@@ -1,0 +1,107 @@
+<main>
+  @if (teamName()) {
+    <!-- header anclas estaticas -->
+    <div>
+      <div class="navbar align-justify">
+        <div>
+          <a routerLink="/teams">← Todos los equipos</a>
+        </div>
+        <ul class="align-justify-center">
+          <li> <a href="">Pilotos</a></li>
+          <li> <a href="">Estadísticas</a></li>
+          <li> <a href="">Perfil</a></li>
+        </ul>
+      </div>
+      <div>
+
+      </div>
+    </div>
+
+    <!-- vista de equipo portada auto nombre pilotos -->
+    <div class="team-view-container align-justify-center" [style.background]="getTeamBackgroundColor(teamName() ?? '')">
+      <div >
+        <div class="team-car-img-container">
+          <img src="assets/teams/alpine/2025alpinecarright.avif" alt="auto del equipo">
+        </div>
+
+        <div class="team-info-container align-justify-center">
+          <div class="team-name-container">
+            <h1>{{ teamName() | uppercase }}</h1>
+          </div>
+
+          <div class="team-pilots-container align-justify-center">
+            <p *ngIf="drivers().length >= 2">
+              {{drivers()[0].firstName}} {{drivers()[0].lastName}} <span style="opacity: 0.2;">|</span> {{drivers()[1].firstName}} {{drivers()[1].lastName}}
+            </p>
+            <p *ngIf="drivers().length === 1">
+              {{drivers()[0].firstName}} {{drivers()[0].lastName}}
+            </p>
+            <p *ngIf="drivers().length === 0">
+              Cargando pilotos...
+            </p>
+            <span>Logo</span>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+
+
+    <!-- descripcion de pilotos -->
+    <div class="drivers-container">
+      <h2>PILOTOS</h2>
+
+      <!-- Estado de carga -->
+      <div *ngIf="isLoading()" class="loading-container">
+        <p>Cargando pilotos...</p>
+      </div>
+
+      <!-- Estado de error -->
+      <div *ngIf="error()" class="error-container">
+        <p>{{ error() }}</p>
+      </div>
+
+      <!-- Lista de pilotos -->
+      <div *ngIf="!isLoading() && !error() && drivers().length > 0" class="drivers-list align-justify-center">
+
+        <!-- piloto 1 -->
+        <div *ngIf="drivers()[0]" class="driver-card" [style.background]="getTeamBackgroundColor(teamName() ?? '')">
+          <div class="driver-info-container">
+            <h4>{{drivers()[0].firstName}} <br><strong>{{drivers()[0].lastName}}</strong> <br><span class="driver-team-name">{{teamName() | uppercase}}</span> <br> <span class="driver-number">{{drivers()[0].number}}</span></h4>
+            <span class="driver-flag"><img style="width: 24px; height: 24px; border-radius: 20px; object-fit: cover; border: 1.2px solid white;" src="{{drivers()[0].image}}" alt="Piloto"></span>
+          </div>
+          <div class="driver-img-container">
+            <img src="{{drivers()[0].image}}" alt="Piloto">
+          </div>
+        </div>
+
+        <!-- piloto 2 -->
+        <div *ngIf="drivers()[1]" class="driver-card" [style.background]="getTeamBackgroundColor(teamName() ?? '')">
+          <div class="driver-info-container">
+            <h4>{{drivers()[1].firstName}} <br><strong>{{drivers()[1].lastName}}</strong> <br><span class="driver-team-name">{{teamName() | uppercase}}</span> <br> <span class="driver-number">{{drivers()[1].number}}</span></h4>
+            <span class="driver-flag"><img style="width: 24px; height: 24px; border-radius: 20px; object-fit: cover; border: 1.2px solid white;" src="{{drivers()[1].image}}" alt="Piloto"></span>
+          </div>
+          <div class="driver-img-container">
+            <img src="{{drivers()[1].image}}" alt="Piloto">
+          </div>
+        </div>
+      </div>
+
+      <!-- Sin pilotos -->
+      <div *ngIf="!isLoading() && !error() && drivers().length === 0" class="no-drivers">
+        <p>No se encontraron pilotos para este equipo.</p>
+      </div>
+    </div>
+
+    <!-- sin informacion -->
+  } @else {
+    <!-- Vista general de equipos -->
+    <div class="teams-overview">
+      <h1>Todos los equipos</h1>
+      <p>Selecciona un equipo desde el menú para ver sus detalles</p>
+      <!-- Aquí puedes agregar una lista general de equipos -->
+    </div>
+  }
+</main>

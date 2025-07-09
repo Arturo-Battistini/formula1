@@ -49,3 +49,10 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+.align-justify-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1rem;
+}

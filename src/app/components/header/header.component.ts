@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { signal } from '@angular/core';
 import { GlobalInfooService } from '../../services/globalInfoo.service';
 import { Circuit, Pilot, Team, Tire } from '../../interfaces/interfaces';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +16,7 @@ import { Circuit, Pilot, Team, Tire } from '../../interfaces/interfaces';
 export class HeaderComponent     {
   headerTitles = environment.headerTitles;
   globalInfooService = inject(GlobalInfooService);
-
+  router = inject(Router);
   pilots = signal<Pilot[]>([]);
   teams = signal<Team[]>([]);
   circuits = signal<Circuit[]>([]);
@@ -57,6 +58,11 @@ export class HeaderComponent     {
         this.loadTires();
         break;
     }
+  }
+
+  onTeamClick(team: Team) {
+    this.router.navigate(['/teams', team.name]);
+    console.log(team.name);
   }
 
   onDropdownEnter() {

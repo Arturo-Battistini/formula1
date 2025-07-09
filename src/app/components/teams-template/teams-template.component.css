@@ -1,0 +1,121 @@
+@import '../../../styles.css';
+*{
+  background-color: transparent;
+}
+.navbar {
+
+}
+.team-view-container{
+  height: 90vh;
+  .team-car-img-container{
+    width: 55%;
+    margin: 0 auto;
+    img {
+      background: transparent !important;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+  .team-info-container{
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    .team-name-container{
+      h1{
+        font-size: 2.75rem;
+        font-weight: bold;
+      }
+    }
+    .team-pilots-container{
+      flex-direction: column;
+    }
+  }
+}
+.drivers-container{
+  margin-top: 100px;
+  padding: 0 3rem;
+  h2{
+    padding-bottom: 2rem;
+    font-weight: bold;
+}
+.drivers-list{
+    gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+    padding: 0;
+  }
+
+  @media (max-width: 800px) {
+    .drivers-list {
+      grid-template-columns: 1fr;
+    }
+  }
+  .driver-card{
+    width:100%;
+    max-height: 256px;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 100px;
+    position: relative;
+  }
+.driver-info-container{
+  display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    position: absolute;
+  h4{
+    font-weight: 400;
+    .driver-team-name{
+      font-size: .6rem;
+    }
+  }
+}
+.driver-img-container{
+  display: flex;
+  justify-content: end;
+  img{
+    width: 195px;
+  }
+}
+.driver-flag{
+  grid-column: 1;
+  grid-row: 2;
+  align-self: end;
+}
+.driver-number{
+  font-size: 23px;
+  font-weight: 600;
+}
+
+/* Estados de carga y error */
+.loading-container,
+.error-container,
+.no-drivers {
+  text-align: center;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+
+.loading-container p,
+.error-container p,
+.no-drivers p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.error-container p {
+  color: #d32f2f;
+  font-weight: 500;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}

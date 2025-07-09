@@ -78,3 +78,12 @@ export interface Tire {
   usageConditions: string;
   imageUrl: string;
 }
+
+export interface Driver {
+  firstName: string;
+  lastName: string;
+  number: number;
+  flag: string;
+  image: string;
+  teamName: string;
+}

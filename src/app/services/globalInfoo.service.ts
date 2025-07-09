@@ -49,12 +49,37 @@ export class GlobalInfooService {
       })
     );
   }
+  getPilotsByTeamName(teamName: string): Observable<Pilot[]> {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+    return this.http.get<Pilot[]>(`${this.baseUrl}pilots/team/${teamName}`).pipe(
+      tap(() => this.loadingSignal.set(false)),
+      catchError((err) => {
+        this.errorSignal.set('Error cargando pilotos');
+        this.loadingSignal.set(false);
+        return throwError(() => err);
+      })
+    );
+  }
 
   getTeams(): Observable<Team[]> {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
 
     return this.http.get<Team[]>(`${this.baseUrl}teams`).pipe(
+      tap(() => this.loadingSignal.set(false)),
+      catchError((err) => {
+        this.errorSignal.set('Error cargando equipos');
+        this.loadingSignal.set(false);
+        return throwError(() => err);
+      })
+    );
+  }
+  getTeamsByName(teamName: string): Observable<Team[]> {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+
+    return this.http.get<Team[]>(`${this.baseUrl}teams/name/${teamName}`).pipe(
       tap(() => this.loadingSignal.set(false)),
       catchError((err) => {
         this.errorSignal.set('Error cargando equipos');
