@@ -1,14 +1,13 @@
 
 <div class="app-content" [class.loading]="loading()">
-<!--   <app-header></app-header> -->
+  <app-header></app-header>
   <app-boddy></app-boddy>
-<!--   <app-footer></app-footer> -->
+  <app-footer></app-footer>
 </div>
 
 @if (loading()) {
   <div class="spinner-container">
     <mat-spinner diameter="32" color="primary" strokeWidth="3"></mat-spinner>
-    <p>Cargando...</p>
   </div>
 }
 

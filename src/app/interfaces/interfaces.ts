@@ -37,6 +37,12 @@ export interface Pilot {
   fastestLaps: number;
   helmetColor: string;
   imageUrl: string;
+  sprintWins: number;
+  sprintPolePositions: number;
+  sprintPodiums: number;
+  sprintPoints: number;
+  sprintFastestLaps: number;
+  sprintParticipations: number;
 }
 export interface Team {
   _id: string;

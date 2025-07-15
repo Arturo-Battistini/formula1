@@ -1,0 +1,133 @@
+@let gridRight = 'pilot-stat-info-grid-right';
+
+<main>
+  @if (pilotName()) {
+    <!-- header anclas estaticas -->
+    <div>
+      <div class="navbar align-justify">
+        <div>
+          <a routerLink="/pilots">← Todos los equipose</a>
+        </div>
+        <ul class="align-justify-center">
+          <li> <a href="">Pilotos</a></li>
+          <li> <a href="">Estadísticas</a></li>
+          <li> <a href="">Perfil</a></li>
+        </ul>
+      </div>
+      <div>
+
+      </div>
+    </div>
+
+    <!-- vista de equipo portada auto nombre pilotos -->
+    <div class="team-view-container " [style.background]="getTeamBackgroundColor(pilotName() ?? '')">
+        <div class="team-info-container align-justify-center">
+          <div class="team-name-container">
+            <h1> <span style="font-family: 'Northwell', sans-serif; font-size: 55px; font-weight: 500;">{{ currentPilot()?.name }}</span> <br> {{ currentPilot()?.surname }}</h1>
+          </div>
+
+          <div class="team-pilots-container align-justify-center">
+            <p *ngIf="isLoading()">
+              Cargando piloto...
+            </p>
+            <div class="driver-info-container align-justify-center" *ngIf="currentPilot() && !isLoading()">
+              <span class="driver-flag"> <span>{{currentPilot()?.nationality}}</span> <img style="width: 24px; height: 24px; border-radius: 20px; object-fit: cover; border: 1.2px solid white;" src="{{currentPilot()?.imageUrl}}" alt="Piloto"></span> <span>|</span>
+              <p>{{ currentPilot()?.currentTeam?.name }}</p> <span>|</span>
+              <p>{{ currentPilot()?.number }}</p>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="team-car-img-container">
+          <span>{{currentPilot()?.number}}</span>
+          <img [src]="getTeamPilotImage(pilotName() ?? '')" alt="auto del piloto" >
+        </div>
+
+
+      </div>
+
+    <!-- descripcion de pilotos -->
+    <div class="pilots-container">
+      <h2 >ESTADISTICAS</h2>
+
+      <div class="pilots-stat-grid">
+        <div class="pilot-stat-season">
+          <h3>Temporada 2025</h3>
+
+          <!-- Estadísticas básicas de temporada -->
+          <div class="pilot-stat-info-grid">
+            <div class="pilot-stat-info-item" *ngFor="let stat of seasonStats()">
+              <label for="position">{{stat.label}}</label>
+              <p>{{stat.value}}</p>
+            </div>
+          </div>
+          <hr>
+
+          <!-- Detalles del piloto -->
+          <div class="pilot-stat-info-grid">
+            <div class="pilot-stat-info-item" *ngFor="let detail of pilotDetails()">
+              <label for="position">{{detail.label}}</label>
+              <p *ngIf="!detail.isDate && detail.property !== 'helmetColor'">{{detail.value}}</p>
+              <p *ngIf="detail.isDate">{{detail.value | date:'dd/MM/yyyy'}}</p>
+              <div *ngIf="detail.property === 'helmetColor'" class="helmet-color-display" [style.background-color]="detail.value"></div>
+            </div>
+          </div>
+          <hr>
+
+          <!-- Estadísticas de Sprint -->
+          <div class="pilot-stat-info-grid">
+            <div class="pilot-stat-info-item" *ngFor="let sprint of sprintStats()">
+              <label for="position">{{sprint.label}}</label>
+              <p>{{sprint.value}}</p>
+            </div>
+          </div>
+          <hr>
+        </div>
+
+
+        <div class="pilot-stat-info-container">
+          <h3>Estadisticas de carrera</h3>
+
+          <div *ngFor="let stat of careerStats(); let last = last">
+            <div class={{gridRight}}>
+              <div class="pilot-stat-info-item">
+
+                <label for="position">{{stat.label}}</label>
+              </div>
+              <div class="pilot-stat-info-item">
+                <p for="position">{{stat.value}}</p>
+              </div>
+            </div>
+            <hr *ngIf="!last">
+          </div>
+        </div>
+      </div>
+
+      <!-- Estado de carga -->
+      <div class="pilots-info-container align-justify-center" *ngIf="isLoading()" class="loading-container">
+        <p>Cargando pilotos...</p>
+      </div>
+
+      <!-- Estado de error -->
+      <div *ngIf="error()" class="error-container">
+        <p>{{ error() }}</p>
+      </div>
+
+
+      <!-- Sin pilotos -->
+      <div *ngIf="!isLoading() && !error() && pilotName() === ''" class="no-pilots">
+        <p>No se encontraron pilotos para este equipo.</p>
+      </div>
+    </div>
+
+    <!-- sin informacion -->
+  } @else {
+    <!-- Vista general de equipos -->
+    <div class="teams-overview">
+      <h1>Todos los pilotos</h1>
+      <p>Selecciona un piloto desde el menú para ver sus detalles</p>
+      <!-- Aquí puedes agregar una lista general de equipos -->
+    </div>
+  }
+</main>

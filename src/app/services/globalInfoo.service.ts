@@ -61,6 +61,18 @@ export class GlobalInfooService {
       })
     );
   }
+  getPilotsByName(pilotName: string): Observable<Pilot> {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+    return this.http.get<Pilot>(`${this.baseUrl}pilots/${pilotName}`).pipe(
+      tap(() => this.loadingSignal.set(false)),
+      catchError((err) => {
+        this.errorSignal.set('Error cargando piloto');
+        this.loadingSignal.set(false);
+        return throwError(() => err);
+      })
+    );
+  }
 
   getTeams(): Observable<Team[]> {
     this.loadingSignal.set(true);
