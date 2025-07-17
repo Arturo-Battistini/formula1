@@ -1,13 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { RouterOutlet } from '@angular/router';
 import { BoddyComponent } from './components/boddy/boddy.component';
 import { GlobalInfooService } from './services/globalInfoo.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-root',
-  imports: [HeaderComponent, FooterComponent, BoddyComponent, MatProgressSpinnerModule],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, BoddyComponent, MatProgressSpinnerModule],
   templateUrl: './app.html',
   styleUrl: './app.css',
   standalone: true,

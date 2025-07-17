@@ -1,10 +1,11 @@
 import { Component, OnInit, inject, input, signal, computed } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Team, Pilot } from '../../interfaces/interfaces';
 import { GlobalInfooService } from '../../services/globalInfoo.service';
 import { forkJoin } from 'rxjs';
+import { TeamUtilsService } from '../../services/team-utils.service';
 
 @Component({
   selector: 'app-teams-template',
@@ -39,7 +40,8 @@ export class TeamsTemplateComponent implements OnInit {
 
   private route = inject(ActivatedRoute);
   private globalInfooService = inject(GlobalInfooService);
-
+  private router = inject(Router);
+  private teamUtils = inject(TeamUtilsService);
     ngOnInit() {
     this.route.params.subscribe(params => {
       const teamName = params['teamName'];
@@ -83,20 +85,7 @@ export class TeamsTemplateComponent implements OnInit {
     }
   }
   getTeamBackgroundColor(teamName: string): string {
-    const teamColors: Record<string, string> = {
-      'alpine': 'linear-gradient(to bottom, #007ab8, #005081, #002b40)',
-      'aston martin': 'linear-gradient(to bottom, #00482C, #003320, #001a10)',
-      'ferrari': 'linear-gradient(to bottom, #710006, #5a0005, #3d0003)',
-      'haas': 'linear-gradient(to bottom, #4D5052, #3a3d3f, #2a2c2e)',
-      'kick sauber': 'linear-gradient(to bottom, #006300, #004d00, #003300)',
-      'mclaren': 'linear-gradient(to bottom, #863400, #6b2a00, #4d1e00)',
-      'mercedes': 'linear-gradient(to bottom, #C8CCCE, #565F64, #000000)',
-      'racing bulls': 'linear-gradient(to bottom, #2345AB, #1c3789, #142667)',
-      'red bull racing': 'linear-gradient(to bottom, #003282, #002666, #001a4a)',
-      'williams': 'linear-gradient(to bottom, #000681, #000566, #00034a)'
-    };
-    const normalizedName = teamName.toLowerCase().trim();
-    return teamColors[normalizedName] || 'transparent'; // Color por defecto si no se encuentra
+    return this.teamUtils.getTeamBackgroundColor3(teamName);
   }
 
     getTeamCarImage(teamName: string): string {
@@ -124,62 +113,54 @@ export class TeamsTemplateComponent implements OnInit {
     return 'assets/teams/alpine/2025alpinecarright.avif';
   }
 
-  getTeamDriverImages(teamName: string): { driver1: string, driver2: string } {
-    // Mapeo de nombres de equipos a las imágenes de sus pilotos
-    const teamDriverImages: Record<string, { driver1: string, driver2: string }> = {
-      'alpine': {
-        driver1: 'assets/teams/alpine/2025alpinepiegas01right.avif',
-        driver2: 'assets/teams/alpine/2025alpinefracol01right.avif'
-      },
-      'aston martin': {
-        driver1: 'assets/teams/aston/2025astonmartinlanstr01right.avif',
-        driver2: 'assets/teams/aston/2025astonmartinferalo01right.avif'
-        },
-      'ferrari': {
-        driver1: 'assets/teams/ferarri/2025ferrarichalec01right.avif',
-        driver2: 'assets/teams/ferarri/2025ferrarilewham01right.avif'
-      },
-      'haas': {
-        driver1: 'assets/teams/haas/2025haasolibea01right.avif',
-        driver2: 'assets/teams/haas/2025haasestoco01right.avif'
-      },
-      'kick sauber': {
-        driver1: 'assets/teams/sauber/2025kicksaubernichul01right.avif',
-        driver2: 'assets/teams/sauber/2025kicksaubergabbor01right.avif'
-      },
-      'mclaren': {
-        driver1: 'assets/teams/mclaren/2025mclarenoscpia01right.avif',
-        driver2: 'assets/teams/mclaren/2025mclarenlannor01right.avif'
-      },
-      'mercedes': {
-        driver1: 'assets/teams/mercedes/2025mercedesandant01right.avif',
-        driver2: 'assets/teams/mercedes/2025mercedesgeorus01right.avif'
-      },
-      'racing bulls': {
-        driver1: 'assets/teams/racingbull/2025racingbullsisahad01right.avif',
-        driver2: 'assets/teams/racingbull/2025racingbullslialaw01right.avif'
-      },
-      'red bull racing': {
-        driver1: 'assets/teams/redbull/2025redbullracingyuktsu01right.avif',
-        driver2: 'assets/teams/redbull/2025redbullracingmaxver01right.avif'
-      },
-      'williams': {
-        driver1: 'assets/teams/williams/2025williamscarsai01right.avif',
-        driver2: 'assets/teams/williams/2025williamsalealb01right.avif'
-      }
+  getPilotImage(pilot: Pilot): string {
+    // Mapeo de pilotos específicos a sus imágenes
+    const pilotImageMap: Record<string, string> = {
+      // Alpine
+      'pierre gasly': 'assets/teams/alpine/2025alpinepiegas01right.avif',
+      'franco colapinto': 'assets/teams/alpine/2025alpinefracol01right.avif',
+
+      // Aston Martin
+      'lance stroll': 'assets/teams/aston/2025astonmartinlanstr01right.avif',
+      'fernando alonso': 'assets/teams/aston/2025astonmartinferalo01right.avif',
+
+      // Ferrari
+      'charles leclerc': 'assets/teams/ferarri/2025ferrarichalec01right.avif',
+      'lewis hamilton': 'assets/teams/ferarri/2025ferrarilewham01right.avif',
+
+      // Haas
+      'esteban ocon': 'assets/teams/haas/2025haasolibea01right.avif',
+      'ollie bearman': 'assets/teams/haas/2025haasestoco01right.avif',
+
+      // Kick Sauber
+      'nico hulkenberg': 'assets/teams/sauber/2025kicksaubernichul01right.avif',
+      'gabriel bortoleto': 'assets/teams/sauber/2025kicksaubergabbor01right.avif',
+
+      // McLaren
+      'oscar piastri': 'assets/teams/mclaren/2025mclarenoscpia01right.avif',
+      'lando norris': 'assets/teams/mclaren/2025mclarenlannor01right.avif',
+
+      // Mercedes
+      'kimi antonelli': 'assets/teams/mercedes/2025mercedesandant01right.avif',
+      'george russell': 'assets/teams/mercedes/2025mercedesgeorus01right.avif',
+
+      // Racing Bulls
+      'isack hadjar': 'assets/teams/racingbull/2025racingbullsisahad01right.avif',
+      'liam lawson': 'assets/teams/racingbull/2025racingbullslialaw01right.avif',
+
+      // Red Bull Racing
+      'yuki tsunoda': 'assets/teams/redbull/2025redbullracingyuktsu01right.avif',
+      'max verstappen': 'assets/teams/redbull/2025redbullracingmaxver01right.avif',
+
+      // Williams
+      'carlos sainz': 'assets/teams/williams/2025williamscarsai01right.avif',
+      'alexander albon': 'assets/teams/williams/2025williamsalealb01right.avif'
     };
 
-    const normalizedName = teamName.toLowerCase().trim();
-    const driverImages = teamDriverImages[normalizedName];
-
-    if (driverImages) {
-      return driverImages;
-    }
-
-    // Imágenes por defecto si no se encuentra el equipo
-    return {
-      driver1: 'assets/teams/alpine/2025alpinefracol01right.avif',
-      driver2: 'assets/teams/alpine/2025alpinepiegas01right.avif'
-    };
+    const pilotKey = `${pilot.name} ${pilot.surname}`.toLowerCase();
+    return pilotImageMap[pilotKey] || 'assets/teams/alpine/2025alpinefracol01right.avif';
+  }
+  onPilotClick(pilot: Pilot) {
+    this.router.navigate(['/pilots', `${pilot.name}-${pilot.surname}`.toLowerCase()]);
   }
 }

@@ -46,9 +46,10 @@ body {
   max-width: 1600px;
   width: 100%;
   margin: 0 auto;
+  background-color: var(--primary-color);
 }
 *{
-  background-color: var(--primary-color);
+/*   background-color: var(--primary-color); */
   color: var(--color-claro);
   box-sizing: border-box;
   margin: 0;

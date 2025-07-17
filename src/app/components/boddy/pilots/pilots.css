@@ -1,0 +1,121 @@
+@import '../../../../styles.css';
+.menu-content {
+  padding: 20px;
+  color: var(--primary-color);
+}
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: 200px;
+}
+
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(21, 21, 30, 0.1);
+  border-top: 2px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 12px;
+}
+.pilots-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  place-items: center;
+  padding: 80px;
+  min-height: 100vh;
+  background-color: var(--primary-color);
+}
+.pilot-card {
+  display: flex;
+  gap: 15px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  width: 100%;
+  align-items: flex-start;
+
+}
+
+.pilot-card:hover {
+  background-color: rgba(21, 21, 30, 0.1);
+  transition: all 0.2s ease;
+  .pilot-name{
+    text-decoration: underline;
+
+  }
+}
+.pilot-logo-c {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+}
+.pilot-logo-c-item {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+      background: #005081;
+    border-radius: 50%;
+}
+
+.pilot-logo {
+  display: flex;
+  height: 24px;
+  width: 24px;
+  object-fit: contain;
+  width: 100%;
+  background-color: transparent;
+
+}
+.pilot-car {
+  width: 100%;
+  display: flex;
+  object-fit: cover;
+  background-color: inherit;
+  height: 170px;
+  width: 190px;
+  object-position: top;
+}
+.pilot-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.pilot-name {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.pilot-team {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.transparent {
+  background-color: transparent!important;
+}
+.pilot-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 20px;
+}
+.pilot-number {
+  font-size: 1.5rem;
+}
+.pilot-team{
+  opacity: .8;
+  font-size: 0.7rem;
+}
+@media (max-width: 768px) {
+  .pilots-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

@@ -43,6 +43,8 @@ export interface Pilot {
   sprintPoints: number;
   sprintFastestLaps: number;
   sprintParticipations: number;
+  currentPosition: number;
+  currentChampionshipPoints: number;
 }
 export interface Team {
   _id: string;
@@ -62,6 +64,8 @@ export interface Team {
   teamPrincipal: string;
   team: string;
   logo: string;
+  currentPosition: number;
+  championshipPoints: number;
 
 }
 export interface Tire {

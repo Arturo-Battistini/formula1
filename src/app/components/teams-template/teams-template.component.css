@@ -1,9 +1,7 @@
 @import '../../../styles.css';
-*{
-  background-color: transparent;
-}
-.navbar {
 
+.navbar {
+  padding: 20px;
 }
 .team-view-container{
   height: 90vh;

@@ -1,0 +1,318 @@
+.pilots-carousel-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.carousel-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.carousel-header h2 {
+  color: #ffffff;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.carousel-btn {
+  background: transparent;
+  color: white;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  border: none;
+}
+
+.carousel-btn:hover:not(:disabled) {
+  transform: scale(1.1);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pilots-container {
+  flex: 1;
+  overflow: hidden;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: white;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.no-pilots {
+  text-align: center;
+  padding: 40px;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.pilots-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.pilots-row {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  padding: 10px 0;
+  width: max-content;
+}
+
+.pilot-card {
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  min-width: 200px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.pilot-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.pilot-card:hover::before {
+  left: 100%;
+}
+
+.pilot-card:hover {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.pilot-image {
+  width: auto;
+  height: 200px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.pilot-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: top 0.3s ease;
+  object-position: top;
+  transition: all 0.3s ease;
+  mask-image: linear-gradient(black 90%, transparent);
+}
+
+.pilot-card:hover .pilot-image img {
+  transform: scale(.9);
+  transition: all 0.3s ease;
+
+}
+
+.pilot-info {
+  color: white;
+}
+
+.pilot-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.pilot-number {
+  font-size: 1rem;
+  color: #ffd700;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.pilot-team {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 5px 0 0 0;
+}
+
+/* Barra de progreso continua */
+.progress-container {
+  margin-top: 30px;
+  padding: 0 20px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #ffffff5c;
+  border-radius: 3px;
+  transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.progress-text {
+  text-align: center;
+  color: white;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .pilots-carousel-container {
+    padding: 15px;
+  }
+
+  .carousel-header h2 {
+    font-size: 2rem;
+  }
+
+  .carousel-wrapper {
+    gap: 10px;
+  }
+
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .pilots-row {
+    gap: 15px;
+  }
+
+  .pilot-card {
+    min-width: 150px;
+    padding: 15px;
+  }
+
+  .pilot-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .pilot-name {
+    font-size: 1rem;
+  }
+
+  .pilot-number {
+    font-size: 0.9rem;
+  }
+
+  .pilot-team {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pilots-row {
+    gap: 10px;
+  }
+
+  .pilot-card {
+    min-width: 120px;
+    padding: 12px;
+  }
+
+  .pilot-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .pilot-name {
+    font-size: 0.9rem;
+  }
+
+  .pilot-number {
+    font-size: 0.8rem;
+  }
+
+  .pilot-team {
+    font-size: 0.7rem;
+  }
+}
+.carousel-buttons{
+  display: flex;
+  justify-content: end;
+  margin-bottom: 30px;
+}
+
+.view-all-btn{
+  background: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  font-family: 'Formula1', sans-serif;
+}

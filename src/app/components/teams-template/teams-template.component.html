@@ -7,21 +7,25 @@
           <a routerLink="/teams">← Todos los equipos</a>
         </div>
         <ul class="align-justify-center">
-          <li> <a href="">Pilotos</a></li>
-          <li> <a href="">Estadísticas</a></li>
-          <li> <a href="">Perfil</a></li>
+          <li><a href="">Pilotos</a></li>
+          <li><a href="">Estadísticas</a></li>
+          <li><a href="">Perfil</a></li>
         </ul>
       </div>
-      <div>
-
-      </div>
+      <div></div>
     </div>
 
     <!-- vista de equipo portada auto nombre pilotos -->
-    <div class="team-view-container align-justify-center" [style.background]="getTeamBackgroundColor(teamName() ?? '')">
-      <div >
+    <div
+      class="team-view-container align-justify-center"
+      [style.background]="getTeamBackgroundColor(teamName() ?? '')"
+    >
+      <div>
         <div class="team-car-img-container">
-          <img [src]="getTeamCarImage(teamName() ?? '')" alt="auto del equipo">
+          <img
+            [src]="getTeamCarImage(teamName() ?? '')"
+            alt="auto del equipo"
+          />
         </div>
 
         <div class="team-info-container align-justify-center">
@@ -30,24 +34,20 @@
           </div>
 
           <div class="team-pilots-container align-justify-center">
-            <p *ngIf="drivers().length >= 2">
-              {{drivers()[0].firstName}} {{drivers()[0].lastName}} <span style="opacity: 0.2;">|</span> {{drivers()[1].firstName}} {{drivers()[1].lastName}}
+            <p *ngIf="pilots().length >= 2">
+              {{ pilots()[0].name }} {{ pilots()[0].surname }}
+              <span style="opacity: 0.2">|</span> {{ pilots()[1].name }}
+              {{ pilots()[1].surname }}
             </p>
-            <p *ngIf="drivers().length === 1">
-              {{drivers()[0].firstName}} {{drivers()[0].lastName}}
+            <p *ngIf="pilots().length === 1">
+              {{ pilots()[0].name }} {{ pilots()[0].surname }}
             </p>
-            <p *ngIf="drivers().length === 0">
-              Cargando pilotos...
-            </p>
+            <p *ngIf="pilots().length === 0">Cargando pilotos...</p>
             <span>Logo</span>
           </div>
-
         </div>
-
-
       </div>
     </div>
-
 
     <!-- descripcion de pilotos -->
     <div class="drivers-container">
@@ -64,33 +64,102 @@
       </div>
 
       <!-- Lista de pilotos -->
-      <div *ngIf="!isLoading() && !error() && drivers().length > 0" class="drivers-list align-justify-center">
-
+      <div
+        *ngIf="!isLoading() && !error() && pilots().length > 0" style="cursor:pointer"
+        class="drivers-list align-justify-center"
+      >
         <!-- piloto 1 -->
-        <div *ngIf="drivers()[0]" class="driver-card" [style.background]="getTeamBackgroundColor(teamName() ?? '')">
-          <div class="driver-info-container">
-            <h4>{{drivers()[0].firstName}} <br><strong>{{drivers()[0].lastName}}</strong> <br><span class="driver-team-name">{{teamName() | uppercase}}</span> <br> <span class="driver-number">{{drivers()[0].number}}</span></h4>
-            <span class="driver-flag"><img style="width: 24px; height: 24px; border-radius: 20px; object-fit: cover; border: 1.2px solid white;" src="{{drivers()[0].image}}" alt="Piloto"></span>
+        <div
+          *ngIf="pilots()[0]"
+          class="driver-card"
+          [style.background]="getTeamBackgroundColor(teamName() ?? '')"
+        >
+          <div
+            class="driver-info-container"
+            (click)="onPilotClick(pilots()[0])"
+            (keydown.enter)="onPilotClick(pilots()[0])"
+            tabindex="0"
+          >
+            <h4>
+              {{ pilots()[0].name }} <br /><strong>{{
+                pilots()[0].surname
+              }}</strong>
+              <br /><span class="driver-team-name">{{
+                teamName() | uppercase
+              }}</span>
+              <br />
+              <span class="driver-number">{{ pilots()[0].number }}</span>
+            </h4>
+            <span class="driver-flag"
+              ><img
+                style="
+                  width: 24px;
+                  height: 24px;
+                  border-radius: 20px;
+                  object-fit: cover;
+                  border: 1.2px solid white;
+                "
+                src="{{ pilots()[0].imageUrl }}"
+                alt="Piloto"
+            /></span>
           </div>
-          <div class="driver-img-container">
-            <img [src]="getTeamDriverImages(teamName() ?? '').driver1" alt="Piloto">
-          </div>
+                      <div class="driver-img-container">
+              <img
+                [src]="getPilotImage(pilots()[0])"
+                alt="Piloto"
+              />
+            </div>
         </div>
 
         <!-- piloto 2 -->
-        <div *ngIf="drivers()[1]" class="driver-card" [style.background]="getTeamBackgroundColor(teamName() ?? '')">
-          <div class="driver-info-container">
-            <h4>{{drivers()[1].firstName}} <br><strong>{{drivers()[1].lastName}}</strong> <br><span class="driver-team-name">{{teamName() | uppercase}}</span> <br> <span class="driver-number">{{drivers()[1].number}}</span></h4>
-            <span class="driver-flag"><img style="width: 24px; height: 24px; border-radius: 20px; object-fit: cover; border: 1.2px solid white;" src="{{drivers()[1].image}}" alt="Piloto"></span>
+        <div
+          *ngIf="pilots()[1]"
+          class="driver-card"
+          [style.background]="getTeamBackgroundColor(teamName() ?? '')"
+        >
+          <div
+            class="driver-info-container"
+            (click)="onPilotClick(pilots()[1])"
+            (keydown.enter)="onPilotClick(pilots()[1])"
+            tabindex="0"
+          >
+            <h4>
+              {{ pilots()[1].name }} <br /><strong>{{
+                pilots()[1].surname
+              }}</strong>
+              <br /><span class="driver-team-name">{{
+                teamName() | uppercase
+              }}</span>
+              <br />
+              <span class="driver-number">{{ pilots()[1].number }}</span>
+            </h4>
+            <span class="driver-flag"
+              ><img
+                style="
+                  width: 24px;
+                  height: 24px;
+                  border-radius: 20px;
+                  object-fit: cover;
+                  border: 1.2px solid white;
+                "
+                src="{{ pilots()[1].imageUrl }}"
+                alt="Piloto"
+            /></span>
           </div>
-          <div class="driver-img-container">
-            <img [src]="getTeamDriverImages(teamName() ?? '').driver2" alt="Piloto">
-          </div>
+                      <div class="driver-img-container">
+              <img
+                [src]="getPilotImage(pilots()[1])"
+                alt="Piloto"
+              />
+            </div>
         </div>
       </div>
 
       <!-- Sin pilotos -->
-      <div *ngIf="!isLoading() && !error() && drivers().length === 0" class="no-drivers">
+      <div
+        *ngIf="!isLoading() && !error() && pilots().length === 0"
+        class="no-drivers"
+      >
         <p>No se encontraron pilotos para este equipo.</p>
       </div>
     </div>

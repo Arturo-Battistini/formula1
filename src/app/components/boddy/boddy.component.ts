@@ -1,10 +1,7 @@
 import { Component, inject, computed, signal, ChangeDetectionStrategy } from '@angular/core';
 import { GlobalInfooService } from '../../services/globalInfoo.service';
 import { Circuit, Pilot, Team, Tire } from '../../interfaces/interfaces';
-import { TeamsTemplateComponent } from '../teams-template/teams-template.component';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from '../header/header.component';
-import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-boddy',
@@ -12,7 +9,7 @@ import { FooterComponent } from '../footer/footer.component';
   styleUrls: ['./boddy.component.css'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TeamsTemplateComponent, RouterOutlet, HeaderComponent, FooterComponent]
+  imports: [RouterOutlet]
 })
 export class BoddyComponent {
 

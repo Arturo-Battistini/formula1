@@ -1,0 +1,84 @@
+<div class="pilots-carousel-container">
+  <div class="carousel-header">
+    <h2>Pilotos de Fórmula 1</h2>
+  </div>
+
+  <div class="carousel-buttons">
+    <button class="view-all-btn">Ver todos</button>
+  <!-- Botón anterior -->
+  @if (pilots().length > 0) {
+    <button
+      class="carousel-btn prev-btn"
+      (click)="prevSlide()"
+      [disabled]="!canGoPrev()"
+      aria-label="Pilotos anteriores">
+      <span>&lt;</span>
+    </button>
+  }
+  <!-- Botón siguiente -->
+  @if (pilots().length > 0) {
+    <button
+      class="carousel-btn next-btn"
+      (click)="nextSlide()"
+      [disabled]="!canGoNext()"
+      aria-label="Pilotos siguientes">
+      <span>&gt;</span>
+    </button>
+  }
+</div>
+  <div class="carousel-wrapper">
+    <!-- Botón anterior -->
+    <!-- Contenedor de pilotos -->
+    <div class="pilots-container">
+      @if (loadingPilots()) {
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Cargando pilotos...</p>
+        </div>
+      }
+
+      @if (!loadingPilots() && pilots().length === 0) {
+        <div class="no-pilots">
+          <p>No se encontraron pilotos</p>
+        </div>
+      }
+
+      @if (!loadingPilots() && pilots().length > 0) {
+        <div class="pilots-viewport">
+          <div
+            class="pilots-row"
+            [style.transform]="getTransformStyle()">
+            @for (pilot of getVisiblePilots(); track pilot._id) {
+              <div class="pilot-card" [style.background]="getTeamBackgroundColor2(pilot.name + '-' + pilot.surname)" style="cursor:pointer" (click)="onPilotClick(pilot)" tabindex="0" (keydown.enter)="onPilotClick(pilot)">
+                <div class="pilot-image" >
+                  <img
+                    [src]="getPilotImage(pilot.name + '-' + pilot.surname)"
+                    [alt]="pilot.name + ' ' + pilot.surname"
+                    (error)="onImageError($event)">
+                </div>
+                <div class="pilot-info">
+                  <h3 class="pilot-name">{{ pilot.name }} {{ pilot.surname }}</h3>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+
+  </div>
+
+  <!-- Barra de progreso continua -->
+  @if (pilots().length > 0) {
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div
+          class="progress-fill"
+          [style.width.%]="getProgressPercentage()">
+        </div>
+      </div>
+
+    </div>
+  }
+</div>

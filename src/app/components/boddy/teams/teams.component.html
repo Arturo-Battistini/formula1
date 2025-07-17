@@ -1,0 +1,40 @@
+@if (loadingTeams()) {
+<div class="loading-container">
+  <div class="loading-spinner"></div>
+  <p>Cargando equipos...</p>
+</div>
+} @else if (teamsFiltered().length > 0) {
+<div class="teams-grid">
+  @for (team of teamsFiltered(); track team._id) {
+
+    <div class="team-card" (click)="onTeamClick(team)" tabindex="0" (keydown.enter)="onTeamClick(team)" [style.background]="getTeamBackgroundColor2(team.name)" style="cursor:pointer">
+
+      <div class="team-logo-c " >
+        <div class="team-logo-c-item " [style.background-color]="getTeamBackgroundColor(team.name)">
+          <img [src]="team.logo" [alt]="team.name" class="team-logo">
+        </div >
+         <div><span class="team-name " >{{ team.name }}</span></div>
+      </div>
+
+      <!-- Pilotos del equipo -->
+      <div class="team-pilots">
+        @for (pilot of getPilotsForTeam(team.name); track pilot._id) {
+          <div class="pilot-sphere">
+            <img [src]="getPilotImage(pilot.name + '-' + pilot.surname)" [alt]="pilot.name" class="pilot-sphere-image" [style.background]="getTeamBackgroundColor2(team.name)">
+            <span class="pilot-name">{{ pilot.name }} {{ pilot.surname }}</span>
+          </div>
+        }
+      </div>
+
+      <div class="team-car">
+        <img [src]="team.team" [alt]="team.name" class="team-car">
+      </div>
+
+    </div>
+  }
+</div>
+} @else {
+<div class="empty-state">
+  <p>No se encontraron equipos</p>
+</div>
+}

@@ -1,0 +1,31 @@
+@if (loadingPilots()) {
+<div class="loading-container">
+  <div class="loading-spinner"></div>
+  <p>Cargando pilotos...</p>
+</div>
+} @else if (pilotsFiltered().length > 0) {
+<div class="pilots-grid">
+  @for (pilot of pilotsFiltered(); track pilot._id) {
+
+    <div class="pilot-card" (click)="onPilotClick(pilot)" tabindex="0" (keydown.enter)="onPilotClick(pilot)" [style.background]="getTeamBackgroundColor2(pilot.name + '-' + pilot.surname)">
+
+      <div class="pilot-logo-c " >
+         <div  class="pilot-card-info" >
+          <span class="pilot-name "  style="font-weight: 500;">{{ pilot.name }} {{ pilot.surname }}</span>
+          <span class="pilot-team " >{{ pilot.currentTeam.name }}</span>
+          <span class="pilot-number " >{{ pilot.number }}</span>
+        </div>
+      </div>
+
+      <div class="pilot-car">
+        <img [src]="getPilotImage(pilot.name + '-' + pilot.surname)" [alt]="pilot.name" class="pilot-car">
+      </div>
+
+    </div>
+  }
+</div>
+} @else {
+<div class="empty-state">
+  <p>No se encontraron pilotos</p>
+</div>
+}
